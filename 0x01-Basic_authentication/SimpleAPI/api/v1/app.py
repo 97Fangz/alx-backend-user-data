@@ -26,3 +26,9 @@ if __name__ == "__main__":
     port = getenv("API_PORT", "5000")
     app.run(host=host, port=port)
 
+@app.errorhandler(401)
+def unauthorized(error) -> str:
+    """
+    Unauthorized handler.
+    """
+    return jsonify({"error": "Unauthorized"}), 401
