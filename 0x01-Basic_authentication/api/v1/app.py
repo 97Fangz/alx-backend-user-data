@@ -26,9 +26,19 @@ if __name__ == "__main__":
     port = getenv("API_PORT", "5000")
     app.run(host=host, port=port)
 
+
 @app.errorhandler(401)
 def unauthorized(error) -> str:
     """
     Unauthorized handler.
     """
     return jsonify({"error": "Unauthorized"}), 401
+
+
+@app_views.route('/forbidden', methods=['GET'], strict_slashes=False)
+def forbidden() -> str:
+    """ GET /api/v1/forbidden
+    Return:
+      - Aborts
+    """
+    abort(403)
